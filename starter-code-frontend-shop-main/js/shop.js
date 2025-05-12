@@ -11,13 +11,31 @@ var cart = [];
 var total = 0;
 
 // Exercise 1
-function buy(id) {
-    // 1. Loop for to the array products to get the item to add to cart
-    const product = products.find((product) => product.id === id)
-    // 2. Add found product to the cart array
-    cart.push(product);
-    console.log(`${product.name} añadido al carro`);
-    console.log("Cart:", cart);
+
+window.buy = function buy(id) {
+    const addProduct = (id) => {
+        const product = products.find((product) => product.id === id);
+        if(product) {
+            const newCartItem = {
+                ...product,
+                quantity: 1,
+            }
+            cart.push(newCartItem);
+            console.log(`${product.name} added to cart`);
+        }
+    }
+
+    const cartItem = cart.find((item) => item.id === id);
+    
+    if(cartItem) {
+        cartItem.quantity += 1;
+        console.log(`Quantity of ${cartItem.name} in cart: ${cartItem.quantity}`);
+    } else {
+        addProduct(id);
+    }
+
+      console.log("Cart:", cart);
+
 }
 
 // Exercise 2
