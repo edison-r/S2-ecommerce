@@ -74,6 +74,7 @@ function calculateTotal() {
 // Exercise 4
 function applyPromotionsCart() {
     // Apply promotions to each item in the array "cart"
+    
 }
 
 // Exercise 5
