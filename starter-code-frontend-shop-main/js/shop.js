@@ -1,14 +1,18 @@
 import { products } from "./products.js";
 
-// => Reminder, it's extremely important that you debug your code. 
-// ** It will save you a lot of time and frustration!
-// ** You'll understand the code better than with console.log(), and you'll also find errors faster. 
-// ** Don't hesitate to seek help from your peers or your mentor if you still struggle with debugging.
-
-// Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
 var cart = [];
-
 var total = 0;
+
+updatePage("cart_list", "")
+updatePage("total_price", 0)
+
+// Variables propias reutilizables
+
+function updatePage(id, newValue){
+    const element = document.getElementById(id);
+
+    if (element) element.innerHTML = newValue;
+}
 
 // Exercise 1
 
@@ -36,16 +40,35 @@ window.buy = function buy(id) {
 
       console.log("Cart:", cart);
 
+    
+    updatePage("count_product", cart.length);
+    calculateTotal();
 }
 
 // Exercise 2
-function cleanCart() {
+window.cleanCart = function cleanCart() {
+    console.log("Cart:", cart);
+    let deletedItems = cart.splice(0, cart.length); // uso este método para añadir un feature de "te puede interesae..."
 
+    console.log("Deleted Items from Cart:", deletedItems);
+    console.log("Cart:", cart);
+
+    updatePage("count_product", cart.length);
+    updatePage("cart_list", "");
+    updatePage("total_price", 0);
 }
 
 // Exercise 3
 function calculateTotal() {
     // Calculate total price of the cart using the "cartList" array
+    let totalPrice = 0;
+
+    for(let i = 0; i < cart.length; i++) {
+        totalPrice += cart[i].price;
+    }
+
+    updatePage("total_price", totalPrice);
+    console.log(totalPrice);
 }
 
 // Exercise 4
@@ -54,7 +77,7 @@ function applyPromotionsCart() {
 }
 
 // Exercise 5
-function printCart() {
+window.printCart = function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
 }
 
@@ -66,6 +89,6 @@ function removeFromCart(id) {
 
 }
 
-function open_modal() {
+window.open_modal = function open_modal() {
     printCart();
 }
