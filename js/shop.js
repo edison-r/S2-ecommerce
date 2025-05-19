@@ -64,19 +64,40 @@ window.cleanCart = function cleanCart() {
 
 // Exercise 3
 function calculateTotal() {
-    let totalPrice = 0;
-    cart.forEach((prod) => totalPrice += prod.price * prod.quantity );
-    updatePage("total_price", totalPrice);
-    
-    console.log(`Total: ${totalPrice}`);
+    let subtotal = 0;
+    let applicableDiscount = false;
+
+    cart.forEach((prod) => {
+        if(prod.offer && prod.quantity >= prod.offer.number) 
+            applicableDiscount = true
+    });
+
+    applicableDiscount ? 
+        subtotal = applyPromotionsCart() : 
+        cart.forEach((prod) => subtotal += prod.price * prod.quantity);
+
+    console.log(`Total: ${subtotal}`);
+    updatePage("total_price", subtotal);
+
+    return subtotal;
 }
 
 // Exercise 4
 function applyPromotionsCart() {
-    // Apply promotions to each item in the array "cart"
-    
-}
+    let subtotalWithDiscount = 0;
 
+    cart.forEach((prod) => {
+        if(prod.offer && prod.quantity >= prod.offer.number){
+            const discount = prod.price * (prod.offer.percent / 100);
+            const discountedPrice = prod.price - discount;
+            subtotalWithDiscount +=  discountedPrice * prod.quantity;
+        } else {
+            subtotalWithDiscount += prod.price * prod.quantity;
+        }
+    });
+    console.log(`Subtotal con descuento: ${subtotalWithDiscount.toFixed(2)}`);
+    return subtotalWithDiscount.toFixed(2);
+}
 // Exercise 5
 window.printCart = function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
