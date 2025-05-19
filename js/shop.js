@@ -6,12 +6,17 @@ var total = 0;
 updatePage("cart_list", "")
 updatePage("total_price", 0)
 
-// Variables propias reutilizables
+// Funciones propias reutilizables
 
 function updatePage(id, newValue){
     const element = document.getElementById(id);
-
     if (element) element.innerHTML = newValue;
+}
+
+function updateCartDom(){
+    let totalProd = 0;
+    cart.forEach((prod) => totalProd += prod.quantity);
+    updatePage("count_product", totalProd);
 }
 
 // Exercise 1
@@ -38,17 +43,16 @@ window.buy = function buy(id) {
         addProduct(id);
     }
 
-      console.log("Cart:", cart);
+    console.log("Cart:", cart);
 
-    
-    updatePage("count_product", cart.length);
+    updateCartDom();
     calculateTotal();
 }
 
 // Exercise 2
 window.cleanCart = function cleanCart() {
     console.log("Cart:", cart);
-    let deletedItems = cart.splice(0, cart.length); // uso este método para añadir un feature de "te puede interesae..."
+    let deletedItems = cart.splice(0, cart.length); // uso este método para añadir un feature de "te puede interesar..."
 
     console.log("Deleted Items from Cart:", deletedItems);
     console.log("Cart:", cart);
@@ -60,15 +64,11 @@ window.cleanCart = function cleanCart() {
 
 // Exercise 3
 function calculateTotal() {
-    // Calculate total price of the cart using the "cartList" array
     let totalPrice = 0;
-
-    for(let i = 0; i < cart.length; i++) {
-        totalPrice += cart[i].price;
-    }
-
+    cart.forEach((prod) => totalPrice += prod.price * prod.quantity );
     updatePage("total_price", totalPrice);
-    console.log(totalPrice);
+    
+    console.log(`Total: ${totalPrice}`);
 }
 
 // Exercise 4
@@ -80,6 +80,7 @@ function applyPromotionsCart() {
 // Exercise 5
 window.printCart = function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+
 }
 
 
