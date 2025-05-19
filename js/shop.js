@@ -7,7 +7,6 @@ updatePage("cart_list", "")
 updatePage("total_price", 0)
 
 // Funciones propias reutilizables
-
 function updatePage(id, newValue){
     const element = document.getElementById(id);
     if (element) element.innerHTML = newValue;
@@ -19,8 +18,13 @@ function updateCartDom(){
     updatePage("count_product", totalProd);
 }
 
-// Exercise 1
+function capitalizeString(str){
+    const firstLetter = str.charAt(0).toUpperCase();
+    const restString = str.slice(1);
+    return firstLetter + restString;
+}
 
+// Exercise 1
 window.buy = function buy(id) {
     const addProduct = (id) => {
         const product = products.find((product) => product.id === id);
@@ -68,8 +72,7 @@ function calculateTotal() {
     let applicableDiscount = false;
 
     cart.forEach((prod) => {
-        if(prod.offer && prod.quantity >= prod.offer.number) 
-            applicableDiscount = true
+        if(prod.offer && prod.quantity >= prod.offer.number) applicableDiscount = true;
     });
 
     applicableDiscount ? 
@@ -101,7 +104,23 @@ function applyPromotionsCart() {
 // Exercise 5
 window.printCart = function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
+    const cartTableBody = document.getElementById("cart_list");
+    const cartPriceElement = document.getElementById("total_price");
 
+    cart.
+    cart.forEach((prod) => {
+        let row = document.createElement("tr");
+        const productName = capitalizeString(prod.name);
+        const subtotal = calculateTotal();
+
+        row.innerHTML=`
+            <th scope="row">${productName}</th>
+            <td>$${prod.price}</td>
+            <td>${prod.quantity}</td>
+            <td>$${subtotal}</td>
+        `;
+        cartTableBody.appendChild(row);
+    });
 }
 
 
