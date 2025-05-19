@@ -72,7 +72,8 @@ function calculateTotal() {
     let applicableDiscount = false;
 
     cart.forEach((prod) => {
-        if(prod.offer && prod.quantity >= prod.offer.number) applicableDiscount = true;
+        if(prod.offer && prod.quantity >= prod.offer.number) 
+            applicableDiscount = true;
     });
 
     applicableDiscount ? 
@@ -86,7 +87,7 @@ function calculateTotal() {
 }
 
 // Exercise 4
-function applyPromotionsCart() {
+function applyPromotionsCart(){
     let subtotalWithDiscount = 0;
 
     cart.forEach((prod) => {
@@ -106,20 +107,27 @@ window.printCart = function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
     const cartTableBody = document.getElementById("cart_list");
     const cartPriceElement = document.getElementById("total_price");
-
-    cart.
+    
     cart.forEach((prod) => {
         let row = document.createElement("tr");
         const productName = capitalizeString(prod.name);
-        const subtotal = calculateTotal();
+        const productPrice = ;
+        const productQty = ;
+        const subtotal = prod.quantity * prod.price;
 
-        row.innerHTML=`
-            <th scope="row">${productName}</th>
-            <td>$${prod.price}</td>
-            <td>${prod.quantity}</td>
-            <td>$${subtotal}</td>
-        `;
-        cartTableBody.appendChild(row);
+        const product = cart.find((product) => product.id === id);
+
+        if(!product){
+            row.innerHTML=`
+                <th scope="row">${productName}</th>
+                <td>$${productPrice}</td>
+                <td class="text-center">${productQty}</td>
+                <td>$${subtotal}</td>
+            `;
+            cartTableBody.appendChild(row);
+        } else {
+
+        }
     });
 }
 
