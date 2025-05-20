@@ -3,7 +3,6 @@ import { products } from "./products.js";
 var cart = [];
 var total = 0;
 
-updatePage("cart_list", "")
 updatePage("total_price", 0)
 
 // Funciones propias reutilizables
@@ -104,31 +103,37 @@ function applyPromotionsCart(){
 }
 // Exercise 5
 window.printCart = function printCart() {
-    // Fill the shopping cart modal manipulating the shopping cart dom
     const cartTableBody = document.getElementById("cart_list");
     const cartPriceElement = document.getElementById("total_price");
+
+    updatePage("cart_list", "")
+
+    let totalPrice = 0;
     
     cart.forEach((prod) => {
-        let row = document.createElement("tr");
         const productName = capitalizeString(prod.name);
-        const productPrice = ;
-        const productQty = ;
-        const subtotal = prod.quantity * prod.price;
-
-        const product = cart.find((product) => product.id === id);
-
-        if(!product){
-            row.innerHTML=`
-                <th scope="row">${productName}</th>
-                <td>$${productPrice}</td>
-                <td class="text-center">${productQty}</td>
-                <td>$${subtotal}</td>
-            `;
-            cartTableBody.appendChild(row);
-        } else {
-
+        let subtotal = prod.quantity * prod.price;
+        
+        if(prod.offer && prod.quantity >= prod.offer.number){
+            const discount = prod.price * (prod.offer.percent / 100);
+            const discountedPrice = prod.price - discount;
+            subtotal =  discountedPrice * prod.quantity;
         }
+        
+        totalPrice += subtotal;
+
+        let row = document.createElement("tr");
+
+        row.innerHTML=`
+            <th scope="row">${productName}</th>
+            <td>$${prod.price}</td>
+            <td class="text-center">${prod.quantity}</td>
+            <td class="text-center">$${subtotal.toFixed(2)}</td>
+        `;
+        cartTableBody.appendChild(row);
     });
+
+    cartPriceElement.textContent = `${totalPrice.toFixed(2)}`
 }
 
 
