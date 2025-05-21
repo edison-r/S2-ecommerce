@@ -4,7 +4,6 @@ const cart = [];
 
 updatePage("total_price", 0)
 
-// Funciones propias reutilizables
 function updatePage(id, newValue){
     const element = document.getElementById(id);
     if (element) element.innerHTML = newValue;
@@ -22,7 +21,6 @@ function capitalizeString(str){
     return firstLetter + restString;
 }
 
-// Exercise 1
 window.buy = function buy(id) {
     const addProduct = (id) => {
         const product = products.find((product) => product.id === id);
@@ -32,7 +30,6 @@ window.buy = function buy(id) {
                 quantity: 1,
             }
             cart.push(newCartItem);
-            console.log(`${product.name} added to cart`);
         }
     }
 
@@ -40,31 +37,23 @@ window.buy = function buy(id) {
     
     if(cartItem) {
         cartItem.quantity += 1;
-        console.log(`Quantity of ${cartItem.name} in cart: ${cartItem.quantity}`);
     } else {
         addProduct(id);
     }
-
-    console.log("Cart:", cart);
 
     updateCartDom();
     calculateTotal();
 }
 
-// Exercise 2
 window.cleanCart = function cleanCart() {
-    console.log("Cart:", cart);
-    let deletedItems = cart.splice(0, cart.length); // uso este método para añadir un feature de "te puede interesar..."
+    let deletedItems = cart.splice(0, cart.length);
 
-    console.log("Deleted Items from Cart:", deletedItems);
-    console.log("Cart:", cart);
-
+    deletedItems;
     updatePage("count_product", cart.length);
     updatePage("cart_list", "");
     updatePage("total_price", 0);
 }
 
-// Exercise 3
 function calculateTotal() {
     let subtotal = 0;
     let applicableDiscount = false;
@@ -78,13 +67,11 @@ function calculateTotal() {
         subtotal = applyPromotionsCart() : 
         cart.forEach((prod) => subtotal += prod.price * prod.quantity);
 
-    console.log(`Total: ${subtotal}`);
     updatePage("total_price", subtotal);
 
     return subtotal;
 }
 
-// Exercise 4
 function applyPromotionsCart(){
     let subtotalWithDiscount = 0;
 
@@ -97,10 +84,9 @@ function applyPromotionsCart(){
             subtotalWithDiscount += prod.price * prod.quantity;
         }
     });
-    console.log(`Subtotal con descuento: ${subtotalWithDiscount.toFixed(2)}`);
     return subtotalWithDiscount.toFixed(2);
 }
-// Exercise 5
+
 window.printCart = function printCart() {
     const cartTableBody = document.getElementById("cart_list");
     const cartPriceElement = document.getElementById("total_price");
@@ -135,14 +121,13 @@ window.printCart = function printCart() {
     cartPriceElement.textContent = `${totalPrice.toFixed(2)}`
 }
 
+window.open_modal = function open_modal() {
+    printCart();
+}
 
-// ** Nivell II **
+/* ** Nivell II **
 
 // Exercise 7
 function removeFromCart(id) {
 
-}
-
-window.open_modal = function open_modal() {
-    printCart();
-}
+} */

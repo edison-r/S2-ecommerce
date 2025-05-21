@@ -72,7 +72,9 @@ const validMail = (mail) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
 const validPass = (pass) => /[a-zA-Z]/.test(pass) && /\d/.test(pass);
 
 function validate(event) {
-  event.preventDefault(); // Bloquea el envío por defecto
+
+  event.preventDefault();
+  
   let hasErrors = false;
   const inputs = document.querySelectorAll("input");
 
