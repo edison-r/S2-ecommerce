@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 });
 
-// funciones propias
 function validateField(input){
 	const errorMessage = getFieldError(input);
 	errorMessage ? showError(input, errorMessage) : cleanError(input);
@@ -55,10 +54,14 @@ const showError = (input, errorMessage) => {
 	const errorDiv = input.nextElementSibling;
 	errorDiv.textContent = errorMessage;
 	input.classList.add("is-invalid");
+	input.classList.remove("is-valid");
 }
 
 const cleanError = (input) => {
+	const errorDiv = input.nextElementSibling;
+	errorDiv.textContent = ""; 
 	input.classList.remove("is-invalid");
+	input.classList.add("is-valid");
 }
 
 const minCharacters = (str) => str.length >= 3;
@@ -66,4 +69,24 @@ const alphabet = (str) => /^[A-Za-z]+$/.test(str);
 const validAddress = (address) => /^[A-Za-z0-9\s,.\-ºª]{5,}$/.test(address);
 const validTelf = (num) => /^[0-9]{9}$/.test(num);
 const validMail = (mail) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
-const validPass = (pass) => /[A-Za-z]/.test(pass) && /\d/.test(pass);
+const validPass = (pass) => /[a-zA-Z]/.test(pass) && /\d/.test(pass);
+
+function validate(event) {
+  event.preventDefault(); // Bloquea el envío por defecto
+  let hasErrors = false;
+  const inputs = document.querySelectorAll("input");
+
+  inputs.forEach(input => {
+    const error = getFieldError(input);
+    if (error) {
+      showError(input, error);
+      hasErrors = true;
+    } else {
+      cleanError(input);
+    }
+  });
+
+  if (!hasErrors) {
+    alert("Formulario enviado correctamente ✅");
+  }
+}
