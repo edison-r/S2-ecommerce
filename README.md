@@ -103,6 +103,7 @@ README.md             ← this file
 
 - The getFieldError function performs several checks depending on the fieldId. A more scalable alternative would be to have one function per field.
 - Save form data locally or send via fetch/AJAX.
+- Level 2 & 3 of the sprint.
 - Add visual indicators (icons, real-time counters).
 - Improve the cart UX/UI, adding an image when is empty.
 
