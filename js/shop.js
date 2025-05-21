@@ -1,7 +1,6 @@
 import { products } from "./products.js";
 
-var cart = [];
-var total = 0;
+const cart = [];
 
 updatePage("total_price", 0)
 
