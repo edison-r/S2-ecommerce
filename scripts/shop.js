@@ -2,8 +2,6 @@ import { products } from "./products.js";
 
 const cart = [];
 
-updatePage("total_price", 0)
-
 function updatePage(id, newValue){
     const element = document.getElementById(id);
     if (element) element.innerHTML = newValue;
@@ -92,6 +90,7 @@ window.printCart = function printCart() {
     const cartPriceElement = document.getElementById("total_price");
 
     updatePage("cart_list", "")
+    updatePage("total_price", 0)
 
     let totalPrice = 0;
     
