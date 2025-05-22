@@ -1,4 +1,4 @@
-# SPRINT 2 🛒 - e-commerce and form validation
+# 🛒 SPRINT 2 - e-commerce and form validation
 
 This is a front-end project focused on building a shopping cart experience and a responsive **checkout form** with custom **JavaScript validation**, created as part of my learning process. 
 
